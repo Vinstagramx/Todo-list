@@ -1,18 +1,19 @@
 import java.util.Scanner;
 
-public class scanner {
+public class TerminalScanner {
 
-    public static void runToDo(String[] args) {
+    public static void runToDo() {
         Scanner commandObj = new Scanner(System.in);
         System.out.println("Welcome to the to-do list command line tool.");
 
 //      String formatter for left-justified text in terminal
         String format = "%-20s%s%n";
         Boolean run = true;
+        String[] commandArgs = null;
         while(run) {
             //      Parsing user input and splitting command arguments by spaces
             String userInput = commandObj.nextLine().toLowerCase();
-            String[] commandArgs = userInput.split("\\s+");
+            commandArgs = userInput.split("\\s+");
             switch (commandArgs[0]) {
                 case "todo":
                     switch (commandArgs[1]) {
@@ -37,14 +38,16 @@ public class scanner {
                     run = false;
                     break;
                 default:
-                    System.out.println("Command %s invalid. Please enter a different command!".format(args[0]));
+                    System.out.println("Command %s invalid. Please enter a different command!".format(commandArgs[0]));
             }
         }
 
 //        Use SQLite database/postgres
 //        Java lists
-        if(args.length > 2){
+        if(commandArgs.length > 2){
             throw new RuntimeException("More than two arguments. Please try again!");
         }
     }
 }
+
+// TODO: filter with streams :))))))))))
