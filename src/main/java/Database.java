@@ -3,9 +3,7 @@ import java.sql.*;
 public class Database {
     public static void createNewDatabase(String fileName) {
 
-        String url = "jdbc:sqlite:C/code/training/intro-to-java/Training-todo/sqlite/db/" + fileName;
-//        String driverUrl = "jdbc:sqlite:C/code/training/intro-to-java/Training-todo/sqlite/java/connect/sqlite-jdbc-3.39.3.0.jar";
-//        DriverManager.registerDriver(driverUrl);
+        String url = "jdbc:sqlite:C:/code/training/intro-to-java/Training-todo/src/main/sqlite/db/" + fileName;
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
