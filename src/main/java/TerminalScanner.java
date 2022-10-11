@@ -13,7 +13,7 @@ public class TerminalScanner {
         Database testDatabase = new Database();
         Connection conn = testDatabase.connect();
 //      String formatter for left-justified text in terminal
-//        String formatHelpString = "%-20s%s%n";
+        String formatHelpString = "%-20s%s%n";
 //        String format2 = "%-20s%s%20s%n";
         Boolean run = true;
         String[] commandArgs = null;
@@ -41,23 +41,25 @@ public class TerminalScanner {
                             System.out.printf("To-do item %d created.%n", itemID);
                             break;
                         case "delete":
-                            System.out.println("Deleting entry...");
                             Integer idToDelete = Integer.parseInt(commandArgs[2]);
 //                            Entry testEntry2 = new Entry();
-                            testDatabase.delete(idToDelete);
-                            System.out.printf("To-do item %d deleted.%n", (int)idToDelete);
+                            Boolean error = testDatabase.delete(idToDelete);
+                            if(!error) {
+                                System.out.println("Deleting entry...");
+                                System.out.printf("To-do item %d deleted.%n", (int) idToDelete);
+                            }
                             break;
                         default:
-                            String formatInvalidString = formatStringGenerator(2);
+//                            String formatInvalidString = formatStringGenerator(2);
                             System.out.println("Invalid command entered. Please use one of the following commands:");
                             System.out.println();
-                            System.out.printf(formatInvalidString, "todo new:", "Create new to-do list item.");
-                            System.out.printf(formatInvalidString, "todo delete:", "Delete specified to-do list item.");
-                            System.out.printf(formatInvalidString, "todo clear:", "Clear all to-do list items.");
+                            System.out.printf(formatHelpString, "todo new:", "Create new to-do list item.");
+                            System.out.printf(formatHelpString, "todo delete:", "Delete specified to-do list item.");
+                            System.out.printf(formatHelpString, "todo clear:", "Clear all to-do list items.");
                     }
                     break;
                 case "help":
-                    String formatHelpString = formatStringGenerator(2);
+//                    String formatHelpString = formatStringGenerator(2);
                     System.out.println("Commands available:");
                     System.out.println();
                     System.out.printf(formatHelpString, "ls:", "Display full to-do list.");
@@ -81,10 +83,16 @@ public class TerminalScanner {
                     break;
                 case "done":
                     Integer idToDelete = Integer.parseInt(commandArgs[1]);
-                    System.out.printf("Completed entry %d. %n", idToDelete);
 //                    Entry testEntry2 = new Entry();
-                    testDatabase.delete(idToDelete);
-                    System.out.printf("To-do item %d removed from list.%n", idToDelete);
+                    Boolean error = testDatabase.delete(idToDelete);
+                    if(!error) {
+                        System.out.printf("Completed entry %d. %n", idToDelete);
+                        System.out.printf("To-do item %d removed from list.%n", idToDelete);
+                    }
+                    break;
+                case "clear":
+                    testDatabase.clear();
+                    System.out.println("Table Cleared.");
                     break;
                 case "ls":
                     testDatabase.selectAll();

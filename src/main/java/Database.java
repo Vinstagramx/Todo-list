@@ -19,7 +19,24 @@ public class Database {
         return conn;
     }
 
-    public void delete(int id) {
+    public Boolean delete(int id) {
+
+        Boolean errorFlag = false;
+        String testExists = "SELECT * FROM todo_list WHERE item_id = ?";
+        try (Connection connTest = this.connect();
+             PreparedStatement pstmtTest = connTest.prepareStatement(testExists)){
+
+            pstmtTest.setInt(1, id);
+            ResultSet rs = pstmtTest.executeQuery();
+
+            if(!rs.isBeforeFirst()){
+                System.out.println("Item ID not found. Please try again with a valid Item ID."); //data does not exist
+                errorFlag = true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         String sql = "DELETE FROM todo_list WHERE item_id = ?";
 
         try (Connection conn = this.connect();
@@ -33,6 +50,7 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return errorFlag;
     }
 
     public void selectAll(){
@@ -75,21 +93,15 @@ public class Database {
     }
 
     public void clear() {
-        for (int i = 1; i <= this.findMaxIndex(); i++) {
-            String sql = "DELETE FROM todo_list WHERE item_id = ?";
-
+//        for (int i = 1; i <= this.findMaxIndex(); i++) {
+//        String sql = "DELETE FROM todo_list WHERE 1=1";
+        String sql = "DELETE FROM todo_list";
             try (Connection conn = this.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-                // set the corresponding param
-                pstmt.setInt(1, i);
-                // execute the delete statement
-                pstmt.executeUpdate();
-
+                 Statement stmt  = conn.createStatement()){
+                stmt.executeUpdate(sql);
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
-    }
 
 }
