@@ -1,6 +1,8 @@
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class TerminalScanner {
@@ -17,17 +19,24 @@ public class TerminalScanner {
         String[] commandArgs = null;
         while(run) {
             //      Parsing user input and splitting command arguments by spaces
-            String userInput = commandObj.nextLine().toLowerCase();
+            String userInput = commandObj.nextLine();
             commandArgs = userInput.split("\\s+");
+            commandArgs[0] = commandArgs[0].toLowerCase();
             switch (commandArgs[0]) {
                 case "todo":
+                    commandArgs[1] = commandArgs[1].toLowerCase();
                     switch (commandArgs[1]) {
                         case "new":
                             System.out.println("Creating new to-do item...");
+
                             LocalDate testDate = LocalDate.now();
                             Integer itemID = testDatabase.findMaxIndex() + 1;
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                            Entry testEntry = new Entry(itemID, commandArgs[2], testDate.format(formatter));
+
+                            List<String> subArray = Arrays.asList(commandArgs).subList(2, commandArgs.length);
+                            String todoMessage = String.join(" ", subArray);
+
+                            Entry testEntry = new Entry(itemID, todoMessage, testDate.format(formatter));
                             testEntry.insert(conn);
                             System.out.printf("To-do item %d created.%n", itemID);
                             break;
@@ -53,23 +62,29 @@ public class TerminalScanner {
                     System.out.println();
                     System.out.printf(formatHelpString, "ls:", "Display full to-do list.");
                     System.out.println();
-                    System.out.printf(formatHelpString, "todo:", "Access and edit to-do list items.");
-                    System.out.println("^ sub-commands:");
-                    System.out.printf(formatHelpString, "new:", "Create new to-do list item.");
-                    System.out.printf(formatHelpString, "delete:", "Delete specified to-do list item.");
+                    System.out.printf(formatHelpString, "done + number:", "Mark to-do item (number) as done.");
+                    System.out.println();
                     System.out.printf(formatHelpString, "clear:", "Clear all to-do list items.");
                     System.out.println();
                     System.out.printf(formatHelpString, "exit:", "Exit to-do list program.");
+                    System.out.println();
+                    System.out.printf(formatHelpString, "todo:", "Access and edit to-do list items.");
+                    System.out.println("^--- sub-commands ---^");
+                    System.out.printf(formatHelpString, "todo new:", "Create new to-do list item.");
+                    System.out.printf(formatHelpString, "todo delete:", "Delete specified to-do list item.");
+                    break;
+                case "":
+                    System.out.println("Please enter a to-do item!");
                     break;
                 case "exit":
                     run = false;
                     break;
                 case "done":
                     Integer idToDelete = Integer.parseInt(commandArgs[1]);
-                    System.out.printf("Completed entry %i. %n", idToDelete);
+                    System.out.printf("Completed entry %d. %n", idToDelete);
 //                    Entry testEntry2 = new Entry();
                     testDatabase.delete(idToDelete);
-                    System.out.printf("To-do item %i removed from list.%n", idToDelete);
+                    System.out.printf("To-do item %d removed from list.%n", idToDelete);
                     break;
                 case "ls":
                     testDatabase.selectAll();

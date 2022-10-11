@@ -74,5 +74,22 @@ public class Database {
         return maxIndex;
     }
 
+    public void clear() {
+        for (int i = 1; i <= this.findMaxIndex(); i++) {
+            String sql = "DELETE FROM todo_list WHERE item_id = ?";
+
+            try (Connection conn = this.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                // set the corresponding param
+                pstmt.setInt(1, i);
+                // execute the delete statement
+                pstmt.executeUpdate();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
 }
