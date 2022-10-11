@@ -7,9 +7,7 @@
     <list default="true" id="c6ffc5ab-5400-420f-b004-0cf2fbb87a4c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Entry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Entry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/TerminalScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TerminalScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/sqlite/db/todo.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/sqlite/db/todo.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +69,7 @@
       <updated>1665407500711</updated>
       <workItem from="1665433529146" duration="2257000" />
       <workItem from="1665435804471" duration="178000" />
-      <workItem from="1665435996588" duration="15111000" />
+      <workItem from="1665435996588" duration="17607000" />
     </task>
     <servers />
   </component>

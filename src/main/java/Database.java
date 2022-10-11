@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database {
 
@@ -36,6 +33,45 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void selectAll(){
+        String sql = "SELECT item_id, content, created_date FROM todo_list";
+        String columnPrintFormat = TerminalScanner.formatStringGenerator(3);
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+             System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Date Created");
+            // loop through the result set
+            while (rs.next()) {
+                System.out.printf(columnPrintFormat, rs.getInt("item_id"),
+                        rs.getString("content"),
+                        rs.getString("created_date"));
+//                System.out.println(rs.getInt("item_id") +  "\t" +
+//                        rs.getString("content") + "\t" +
+//                        rs.getString("created_date"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Integer findMaxIndex(){
+        String sql = "SELECT max(item_id) FROM todo_list";
+        Integer maxIndex = null;
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            if (rs.next()) {
+                maxIndex = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return maxIndex;
     }
 
 

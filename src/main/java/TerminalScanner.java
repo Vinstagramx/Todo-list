@@ -25,7 +25,7 @@ public class TerminalScanner {
                         case "new":
                             System.out.println("Creating new to-do item...");
                             LocalDate testDate = LocalDate.now();
-                            Integer itemID = 0;
+                            Integer itemID = testDatabase.findMaxIndex() + 1;
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                             Entry testEntry = new Entry(itemID, commandArgs[2], testDate.format(formatter));
                             testEntry.insert(conn);
@@ -58,7 +58,7 @@ public class TerminalScanner {
                     System.out.printf(formatHelpString, "new:", "Create new to-do list item.");
                     System.out.printf(formatHelpString, "delete:", "Delete specified to-do list item.");
                     System.out.printf(formatHelpString, "clear:", "Clear all to-do list items.");
-//                    System.out.println();
+                    System.out.println();
                     System.out.printf(formatHelpString, "exit:", "Exit to-do list program.");
                     break;
                 case "exit":
@@ -70,6 +70,9 @@ public class TerminalScanner {
 //                    Entry testEntry2 = new Entry();
                     testDatabase.delete(idToDelete);
                     System.out.printf("To-do item %i removed from list.%n", idToDelete);
+                    break;
+                case "ls":
+                    testDatabase.selectAll();
                     break;
                 default:
                     System.out.printf("Command \"%s\" invalid. Please enter a different command!%n", commandArgs[0]);
@@ -87,9 +90,10 @@ public class TerminalScanner {
      based on number of text items to display in the same line
      */
     public static String formatStringGenerator(int thingsToDisplay){
-        String lJust = "%-20s%s";
+//        String lJust = "%-20s%s";
+        String lJust = "%6s%40s";
         for (int i =2; i<thingsToDisplay;i++){
-            lJust = lJust.concat("%20s");
+            lJust = lJust.concat("%40s");
         }
         lJust = lJust.concat("%n");
         return lJust;
