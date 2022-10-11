@@ -9,54 +9,45 @@ import java.sql.SQLException;
  */
 public class Entry {
 
+    private Integer itemID;
+    private String content;
+    private String createdDate;
+    private static int counter; // TODO: Pull max id from sql database and then use start counter from there
+
+    Entry(Integer itemID, String content, String createdDate){
+        this.itemID = itemID;
+        this.content = content;
+        this.createdDate = createdDate;
+    }
     /**
      * Connect to the test.db database
      *
      * @return the Connection object
      */
-    private Connection connect() {
-        // SQLite connection string
-        String url = "jdbc:sqlite:C:/code/training/intro-to-java/Training-todo/src/main/sqlite/db/todo.db";
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
-    }
+//    private Connection connect() {
+//        // SQLite connection string
+//        String url = "jdbc:sqlite:C:/code/training/intro-to-java/Training-todo/src/main/sqlite/db/todo.db";
+//        Connection conn = null;
+//        try {
+//            conn = DriverManager.getConnection(url);
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return conn;
+//    }
 
     /**
      * Insert a new row into the warehouses table
-     *
-     * @param name
-     * @param capacity
      */
-    public void insert(Integer itemID, String content, String createdDate) {
+    public void insert(Connection conn) {
         String sql = "INSERT INTO todo_list(item_id,content,created_date) VALUES(?,?,?)";
 
-        try (Connection conn = this.connect();
+        try (
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, itemID);
-            pstmt.setString(2, content);
-            pstmt.setString(3, createdDate);
+            pstmt.setInt(1, this.itemID);
+            pstmt.setString(2, this.content);
+            pstmt.setString(3, this.createdDate);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void delete(int id) {
-        String sql = "DELETE FROM todo_list WHERE item_id = ?";
-
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            // set the corresponding param
-            pstmt.setInt(1, id);
-            // execute the delete statement
-            pstmt.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

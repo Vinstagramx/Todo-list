@@ -5,10 +5,11 @@ import java.util.Scanner;
 
 public class TerminalScanner {
 
-    public static void runToDo(Connection conn) {
+    public static void runToDo() {
         Scanner commandObj = new Scanner(System.in);
         System.out.println("Welcome to the to-do list command line tool.");
-
+        Database testDatabase = new Database();
+        Connection conn = testDatabase.connect();
 //      String formatter for left-justified text in terminal
 //        String formatHelpString = "%-20s%s%n";
 //        String format2 = "%-20s%s%20s%n";
@@ -23,18 +24,20 @@ public class TerminalScanner {
                     switch (commandArgs[1]) {
                         case "new":
                             System.out.println("Creating new to-do item...");
-                            Entry testEntry = new Entry();
                             LocalDate testDate = LocalDate.now();
                             Integer itemID = 0;
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                            testEntry.insert(itemID, commandArgs[2], testDate.format(formatter));
-                            System.out.printf("To-do item %i created.%n",itemID);
+                            Entry testEntry = new Entry(itemID, commandArgs[2], testDate.format(formatter));
+                            testEntry.insert(conn);
+                            System.out.printf("To-do item %d created.%n", itemID);
+                            break;
                         case "delete":
                             System.out.println("Deleting entry...");
                             Integer idToDelete = Integer.parseInt(commandArgs[2]);
-                            Entry testEntry2 = new Entry();
-                            testEntry2.delete(idToDelete);
-                            System.out.printf("To-do item %i deleted.%n", idToDelete);
+//                            Entry testEntry2 = new Entry();
+                            testDatabase.delete(idToDelete);
+                            System.out.printf("To-do item %d deleted.%n", (int)idToDelete);
+                            break;
                         default:
                             String formatInvalidString = formatStringGenerator(2);
                             System.out.println("Invalid command entered. Please use one of the following commands:");
@@ -64,9 +67,10 @@ public class TerminalScanner {
                 case "done":
                     Integer idToDelete = Integer.parseInt(commandArgs[1]);
                     System.out.printf("Completed entry %i. %n", idToDelete);
-                    Entry testEntry2 = new Entry();
-                    testEntry2.delete(idToDelete);
+//                    Entry testEntry2 = new Entry();
+                    testDatabase.delete(idToDelete);
                     System.out.printf("To-do item %i removed from list.%n", idToDelete);
+                    break;
                 default:
                     System.out.printf("Command \"%s\" invalid. Please enter a different command!%n", commandArgs[0]);
             }
