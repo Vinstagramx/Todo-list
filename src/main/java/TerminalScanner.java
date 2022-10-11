@@ -41,8 +41,13 @@ public class TerminalScanner {
                             System.out.printf("To-do item %d created.%n", itemID);
                             break;
                         case "delete":
-                            Integer idToDelete = Integer.parseInt(commandArgs[2]);
-//                            Entry testEntry2 = new Entry();
+                            Integer idToDelete = null;
+                            try {
+                                idToDelete = Integer.parseInt(commandArgs[2]);
+                            }catch (NumberFormatException ex){
+                                System.out.println("Invalid ID type entered. Please enter a valid numerical ID.");
+                                break;
+                            }
                             Boolean error = testDatabase.delete(idToDelete);
                             if(!error) {
                                 System.out.println("Deleting entry...");
@@ -82,8 +87,13 @@ public class TerminalScanner {
                     run = false;
                     break;
                 case "done":
-                    Integer idToDelete = Integer.parseInt(commandArgs[1]);
-//                    Entry testEntry2 = new Entry();
+                    Integer idToDelete = null;
+                    try {
+                        idToDelete = Integer.parseInt(commandArgs[1]);
+                    }catch (NumberFormatException ex){
+                        System.out.println("Invalid ID type entered. Please enter a valid numerical ID.");
+                        break;
+                    }
                     Boolean error = testDatabase.delete(idToDelete);
                     if(!error) {
                         System.out.printf("Completed entry %d. %n", idToDelete);
@@ -102,15 +112,12 @@ public class TerminalScanner {
             }
         }
     }
-//        Use SQLite database/postgres
-//        Java lists
-//        if(commandArgs.length > 2){
-//            throw new RuntimeException("More than two arguments. Please try again!");
-//        }
 
     /**
-    Method to create left-justified formatting string
-     based on number of text items to display in the same line
+     * Method to create left-justified formatting string
+     * based on number of text items to display in the same line
+     *
+     * @return lJust - Formatted String
      */
     public static String formatStringGenerator(int thingsToDisplay){
 //        String lJust = "%-20s%s";

@@ -3,14 +3,15 @@ import java.sql.*;
 public class Database {
 
     /**
-     * Connect to the test.db database
+     * Connects to the todo_list.db SQLite database
      *
      * @return the Connection object
      */
     public Connection connect() {
-        // SQLite connection string
+        // SQLite connection URL
         String url = "jdbc:sqlite:C:/code/training/intro-to-java/Training-todo/src/main/sqlite/db/todo.db";
         Connection conn = null;
+        // Try obtaining a connection unless an exception is encountered
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
@@ -19,6 +20,11 @@ public class Database {
         return conn;
     }
 
+    /**
+     * Deletes an entry from the database.
+     * @param id - Item ID of the entry to delete.
+     * @return errorFlag - raised if ID is invalid.
+     */
     public Boolean delete(int id) {
 
         Boolean errorFlag = false;
