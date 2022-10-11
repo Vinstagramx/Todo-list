@@ -1,10 +1,11 @@
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TerminalScanner {
 
-    public static void runToDo() {
+    public static void runToDo(Connection conn) {
         Scanner commandObj = new Scanner(System.in);
         System.out.println("Welcome to the to-do list command line tool.");
 
@@ -67,7 +68,7 @@ public class TerminalScanner {
                     testEntry2.delete(idToDelete);
                     System.out.printf("To-do item %i removed from list.%n", idToDelete);
                 default:
-                    System.out.printf("Command %s invalid. Please enter a different command!%n", commandArgs[0]);
+                    System.out.printf("Command \"%s\" invalid. Please enter a different command!%n", commandArgs[0]);
             }
         }
     }
@@ -93,4 +94,4 @@ public class TerminalScanner {
 
 // TODO: filter with streams :))))))))))
 // TODO: shift things up
-// TODO: associate ids
+// TODO: associate ids, database is its own class, entry is its own class which is created
