@@ -1313,5 +1313,51 @@
     <argument id="481" parent="165">
       <Position>1</Position>
     </argument>
+    <table id="482" parent="166" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <table id="483" parent="166" name="todo"/>
+    <table id="484" parent="166" name="todo_list"/>
+    <column id="485" parent="482" name="type">
+      <DataType>TEXT|0s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="486" parent="482" name="name">
+      <DataType>TEXT|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="487" parent="482" name="tbl_name">
+      <DataType>TEXT|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <column id="488" parent="482" name="rootpage">
+      <DataType>INT|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="489" parent="482" name="sql">
+      <DataType>TEXT|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <column id="490" parent="483" name="C1">
+      <DataType>TEXT|0s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="491" parent="484" name="item_id">
+      <DataType>INTEGER|0s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="492" parent="484" name="content">
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="493" parent="484" name="created_date">
+      <DataType>DATE|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <key id="494" parent="484">
+      <ColNames>item_id</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>

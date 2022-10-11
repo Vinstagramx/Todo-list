@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6ffc5ab-5400-420f-b004-0cf2fbb87a4c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Entry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0a156287-4ffd-4413-9992-ed84d5e310b0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9a6ba7b5-d442-44e2-a9ec-1553224c6835.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9a6ba7b5-d442-44e2-a9ec-1553224c6835.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/edc20120-4b8a-4893-9e90-17964d5292a5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TerminalScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TerminalScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/sqlite/db/todo.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/sqlite/db/todo.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,25 +39,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/code/training/intro-to-java/Training-todo/sqlite-jdbc-3.39.3.0.jar",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/code/training/intro-to-java/Training-todo/sqlite-jdbc-3.39.3.0.jar&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\code\training\intro-to-java\Training-todo\src\main" />
@@ -64,7 +72,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1665407500711</updated>
-      <workItem from="1665433529146" duration="1569000" />
+      <workItem from="1665433529146" duration="2257000" />
+      <workItem from="1665435804471" duration="178000" />
+      <workItem from="1665435996588" duration="12761000" />
     </task>
     <servers />
   </component>

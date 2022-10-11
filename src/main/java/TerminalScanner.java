@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class TerminalScanner {
@@ -7,7 +9,8 @@ public class TerminalScanner {
         System.out.println("Welcome to the to-do list command line tool.");
 
 //      String formatter for left-justified text in terminal
-        String format = "%-20s%s%n";
+//        String formatHelpString = "%-20s%s%n";
+//        String format2 = "%-20s%s%20s%n";
         Boolean run = true;
         String[] commandArgs = null;
         while(run) {
@@ -19,35 +22,75 @@ public class TerminalScanner {
                     switch (commandArgs[1]) {
                         case "new":
                             System.out.println("Creating new to-do item...");
+                            Entry testEntry = new Entry();
+                            LocalDate testDate = LocalDate.now();
+                            Integer itemID = 0;
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                            testEntry.insert(itemID, commandArgs[2], testDate.format(formatter));
+                            System.out.printf("To-do item %i created.%n",itemID);
+                        case "delete":
+                            System.out.println("Deleting entry...");
+                            Integer idToDelete = Integer.parseInt(commandArgs[2]);
+                            Entry testEntry2 = new Entry();
+                            testEntry2.delete(idToDelete);
+                            System.out.printf("To-do item %i deleted.%n", idToDelete);
+                        default:
+                            String formatInvalidString = formatStringGenerator(2);
+                            System.out.println("Invalid command entered. Please use one of the following commands:");
+                            System.out.println();
+                            System.out.printf(formatInvalidString, "todo new:", "Create new to-do list item.");
+                            System.out.printf(formatInvalidString, "todo delete:", "Delete specified to-do list item.");
+                            System.out.printf(formatInvalidString, "todo clear:", "Clear all to-do list items.");
                     }
                     break;
                 case "help":
+                    String formatHelpString = formatStringGenerator(2);
                     System.out.println("Commands available:");
                     System.out.println();
-                    System.out.printf(format, "ls:", "Display full to-do list.");
+                    System.out.printf(formatHelpString, "ls:", "Display full to-do list.");
                     System.out.println();
-                    System.out.printf(format, "todo:", "Access and edit to-do list items.");
+                    System.out.printf(formatHelpString, "todo:", "Access and edit to-do list items.");
                     System.out.println("^ sub-commands:");
-                    System.out.printf(format, "new:", "Create new to-do list item.");
-                    System.out.printf(format, "delete:", "Delete specified to-do list item.");
-                    System.out.printf(format, "clear:", "Clear all to-do list items.");
-                    System.out.println();
-                    System.out.printf(format, "exit:", "Exit to-do list program.");
+                    System.out.printf(formatHelpString, "new:", "Create new to-do list item.");
+                    System.out.printf(formatHelpString, "delete:", "Delete specified to-do list item.");
+                    System.out.printf(formatHelpString, "clear:", "Clear all to-do list items.");
+//                    System.out.println();
+                    System.out.printf(formatHelpString, "exit:", "Exit to-do list program.");
                     break;
                 case "exit":
                     run = false;
                     break;
+                case "done":
+                    Integer idToDelete = Integer.parseInt(commandArgs[1]);
+                    System.out.printf("Completed entry %i. %n", idToDelete);
+                    Entry testEntry2 = new Entry();
+                    testEntry2.delete(idToDelete);
+                    System.out.printf("To-do item %i removed from list.%n", idToDelete);
                 default:
-                    System.out.println("Command %s invalid. Please enter a different command!".format(commandArgs[0]));
+                    System.out.printf("Command %s invalid. Please enter a different command!%n", commandArgs[0]);
             }
         }
-
+    }
 //        Use SQLite database/postgres
 //        Java lists
-        if(commandArgs.length > 2){
-            throw new RuntimeException("More than two arguments. Please try again!");
+//        if(commandArgs.length > 2){
+//            throw new RuntimeException("More than two arguments. Please try again!");
+//        }
+
+    /**
+    Method to create left-justified formatting string
+     based on number of text items to display in the same line
+     */
+    public static String formatStringGenerator(int thingsToDisplay){
+        String lJust = "%-20s%s";
+        for (int i =2; i<thingsToDisplay;i++){
+            lJust = lJust.concat("%20s");
         }
+        lJust = lJust.concat("%n");
+        return lJust;
     }
 }
 
 // TODO: filter with streams :))))))))))
+// TODO: shift things up
+// TODO: associate ids
