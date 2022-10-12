@@ -169,16 +169,28 @@ public class TerminalScanner {
                         switch (commandArgs[1]) {
                             case "filter":
                                 if (commandArgs[2].toLowerCase().equals("priority")){
-                                    System.out.println("test2");
+//                                    System.out.println("test2");
                                     testDatabase.filterPriority(commandArgs[3]);
                                 }
                                 else if (commandArgs[2].toLowerCase().equals("category")){
                                     testDatabase.filterCategory(commandArgs[3]);
                                 }
                             case "sort":
+                                if (commandArgs.length == 2){
+                                    testDatabase.sort();
+                                }
+                                else if (commandArgs[2].toLowerCase().equals("category")){
+                                    testDatabase.sortCategory();
+                                }
+                                else if (commandArgs[2].toLowerCase().equals("priority")) {
+                                    testDatabase.sortPriority();
+                                }
+                                else{
+                                    System.out.printf("Command \"%s\" invalid. Please enter a different command!%n", commandArgs[2]);
+                                }
                                 break;
                             default:
-
+                                System.out.printf("Command \"%s\" invalid. Please enter a different command!%n", commandArgs[1]);
                         }
                     }
                     break;

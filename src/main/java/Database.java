@@ -179,4 +179,99 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+
+    public void sort(){
+        String sql = "SELECT * FROM todo_list ORDER BY content";
+        String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Priority",
+                    "Category", "Date Created");
+            // loop through the result set
+            while (rs.next()) {
+                System.out.printf(columnPrintFormat, rs.getInt("item_id"),
+                        rs.getString("content"),
+                        rs.getString("priority"),
+                        rs.getString("category"),
+                        rs.getString("created_date"));
+//                System.out.println(rs.getInt("item_id") +  "\t" +
+//                        rs.getString("content") + "\t" +
+//                        rs.getString("created_date"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void sortPriority(){
+//        String sql = "SELECT * FROM todo_list ORDER BY CASE priority WHEN 'High' THEN 1 WHEN 'Medium' THEN 2 WHEN 'Low' THEN 3 ELSE 4 END";
+//        String sql = "SELECT * FROM todo_list ORDER BY CASE priority = \"High\" DESC priority = \"Normal\" DESC priority =\"Low\" DESC 1 ELSE END";
+        String sql1 = "SELECT item_id, content, priority, category, created_date FROM todo_list WHERE priority = 'High'";
+        String sql2 = "SELECT item_id, content, priority, category, created_date FROM todo_list WHERE priority = 'Normal'";
+        String sql3 = "SELECT item_id, content, priority, category, created_date FROM todo_list WHERE priority = 'Low'";
+        String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql1);
+            System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Priority",
+                    "Category", "Date Created");
+            // loop through the result set
+            while (rs.next()) {
+                System.out.printf(columnPrintFormat, rs.getInt("item_id"),
+                        rs.getString("content"),
+                        rs.getString("priority"),
+                        rs.getString("category"),
+                        rs.getString("created_date"));
+//                System.out.println(rs.getInt("item_id") +  "\t" +
+//                        rs.getString("content") + "\t" +
+//                        rs.getString("created_date"));
+            }
+            ResultSet rs2 = stmt.executeQuery(sql2);
+            while (rs2.next()) {
+                System.out.printf(columnPrintFormat, rs2.getInt("item_id"),
+                        rs2.getString("content"),
+                        rs2.getString("priority"),
+                        rs2.getString("category"),
+                        rs2.getString("created_date"));
+            }
+            ResultSet rs3 = stmt.executeQuery(sql3);
+            while (rs3.next()) {
+                System.out.printf(columnPrintFormat, rs3.getInt("item_id"),
+                        rs3.getString("content"),
+                        rs3.getString("priority"),
+                        rs3.getString("category"),
+                        rs3.getString("created_date"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void sortCategory(){
+        String sql = "SELECT * FROM todo_list ORDER BY category";
+        String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+            System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Priority",
+                    "Category", "Date Created");
+            // loop through the result set
+            while (rs.next()) {
+                System.out.printf(columnPrintFormat, rs.getInt("item_id"),
+                        rs.getString("content"),
+                        rs.getString("priority"),
+                        rs.getString("category"),
+                        rs.getString("created_date"));
+//                System.out.println(rs.getInt("item_id") +  "\t" +
+//                        rs.getString("content") + "\t" +
+//                        rs.getString("created_date"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
