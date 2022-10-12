@@ -44,4 +44,12 @@ public class Entry {
         }
     }
 
+    public void changePriority(String priority){
+        this.priority = priority;
+    }
+
+    public void changeCategory(String category){
+        this.category = category;
+    }
+
 }

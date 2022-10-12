@@ -30,8 +30,6 @@ public class TerminalScanner {
                     commandArgs[1] = commandArgs[1].toLowerCase();
                     switch (commandArgs[1]) {
                         case "new":
-                            System.out.println("Creating new to-do item...");
-
                             LocalDate testDate = LocalDate.now();
                             Integer itemID = testDatabase.findMaxIndex() + 1;
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -48,6 +46,47 @@ public class TerminalScanner {
                             String todoMessage = String.join(" ", subArray);
 
                             Entry testEntry = new Entry(itemID, todoMessage, testDate.format(formatter));
+                            if (optionalArgumentIndices[0] != -1 && optionalArgumentIndices[1] == -1){
+                                int priorityIndex = optionalArgumentIndices[0] + 1;
+                                String prioritySetting = formatPriority(commandArgs[priorityIndex]);
+                                if (!checkPriority(prioritySetting)){
+                                    System.out.println("Your priority keyword is invalid. " +
+                                            "Your item will be saved with \"Normal\" priority. Next time, please use \"High\",\"Normal\" or \"Low\"");
+                                }
+                                else{
+                                    testEntry.changePriority(prioritySetting);
+                                }
+                            } else if (optionalArgumentIndices[1] != -1  && optionalArgumentIndices[0] == -1){
+                                int categoryIndex = optionalArgumentIndices[1] + 1;
+                                List<String> categorySubArray = Arrays.asList(commandArgs).subList(categoryIndex, commandArgs.length);
+                                String category = String.join(" ", categorySubArray);
+                                testEntry.changeCategory(category);
+                            } else if (optionalArgumentIndices[0] != -1 && optionalArgumentIndices[1] != -1){
+
+                                int priorityIndex = optionalArgumentIndices[0] + 1;
+                                String prioritySetting = formatPriority(commandArgs[priorityIndex]);
+                                if (!checkPriority(prioritySetting)){
+                                    System.out.println("Your priority keyword is invalid. " +
+                                            "Your item will be saved with \"Normal\" priority. Next time, please use \"High\",\"Normal\" or \"Low\"");
+                                }
+                                else{
+                                    testEntry.changePriority(prioritySetting);
+                                }
+
+                                int categoryIndex = optionalArgumentIndices[1] + 1;
+                                List<String> categorySubArray = null;
+                                if (optionalArgumentIndices[1] > optionalArgumentIndices[0]) {
+                                    categorySubArray = Arrays.asList(commandArgs).subList(categoryIndex, commandArgs.length);
+                                }
+                                else {
+                                    categorySubArray = Arrays.asList(commandArgs).subList(categoryIndex, optionalArgumentIndices[0]);
+                                }
+                                String category = String.join(" ", categorySubArray);
+                                testEntry.changeCategory(category);
+
+                            } else{   }
+
+                            System.out.println("Creating new to-do item...");
                             testEntry.insert(conn);
                             System.out.printf("To-do item %d created.%n", itemID);
                             break;
@@ -132,9 +171,9 @@ public class TerminalScanner {
      */
     public static String formatStringGenerator(int thingsToDisplay){
 //        String lJust = "%-20s%s";
-        String lJust = "%6s%40s";
+        String lJust = "%6s%50s";
         for (int i =2; i<thingsToDisplay;i++){
-            lJust = lJust.concat("%40s");
+            lJust = lJust.concat("%25s");
         }
         lJust = lJust.concat("%n");
         return lJust;
@@ -148,6 +187,16 @@ public class TerminalScanner {
         int categoryIndex = commandsListCopy.indexOf("category");
 //        System.out.println("p " + priorityIndex + "c " + categoryIndex);
         return new int[]{priorityIndex, categoryIndex};
+    }
+
+    private static String formatPriority(String priority){
+        priority = priority.toLowerCase();
+        String formatted = priority.substring(0, 1).toUpperCase() + priority.substring(1);
+        return formatted;
+    }
+    private static boolean checkPriority(String priority){
+        List<String> commandsListCopy = Arrays.asList("High", "Normal", "Low");
+        return commandsListCopy.contains(priority);
     }
 }
 
