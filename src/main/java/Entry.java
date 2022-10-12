@@ -8,10 +8,15 @@ import java.sql.SQLException;
  *
  */
 public class Entry {
-
+// TODO: category and priority
     private Integer itemID;
     private String content;
+
+    private String priority = "Normal";
+
+    private String category = "";
     private String createdDate;
+
     private static int counter;
 
     Entry(Integer itemID, String content, String createdDate){
@@ -24,13 +29,15 @@ public class Entry {
      * Inserts the entry into the todo_list table
      */
     public void insert(Connection conn) {
-        String sql = "INSERT INTO todo_list(item_id,content,created_date) VALUES(?,?,?)";
+        String sql = "INSERT INTO todo_list(item_id,content,priority,category,created_date) VALUES(?,?,?,?,?)";
 
         try (
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, this.itemID);
             pstmt.setString(2, this.content);
-            pstmt.setString(3, this.createdDate);
+            pstmt.setString(3, this.priority);
+            pstmt.setString(4, this.category);
+            pstmt.setString(5, this.createdDate);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

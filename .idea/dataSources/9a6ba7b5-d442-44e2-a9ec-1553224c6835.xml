@@ -1351,11 +1351,19 @@
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="493" parent="484" name="created_date">
-      <DataType>DATE|0s</DataType>
+    <column id="493" parent="484" name="priority">
+      <DataType>TEXT|0s</DataType>
       <Position>3</Position>
     </column>
-    <key id="494" parent="484">
+    <column id="494" parent="484" name="category">
+      <DataType>TEXT|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="495" parent="484" name="created_date">
+      <DataType>TEXT|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <key id="496" parent="484">
       <ColNames>item_id</ColNames>
       <Primary>1</Primary>
     </key>

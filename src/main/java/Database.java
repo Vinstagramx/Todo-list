@@ -60,17 +60,20 @@ public class Database {
     }
 
     public void selectAll(){
-        String sql = "SELECT item_id, content, created_date FROM todo_list";
-        String columnPrintFormat = TerminalScanner.formatStringGenerator(3);
+        String sql = "SELECT item_id, content, priority, category, created_date FROM todo_list";
+        String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
-             System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Date Created");
+             System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Priority",
+                     "Category", "Date Created");
             // loop through the result set
             while (rs.next()) {
                 System.out.printf(columnPrintFormat, rs.getInt("item_id"),
                         rs.getString("content"),
+                        rs.getString("priority"),
+                        rs.getString("category"),
                         rs.getString("created_date"));
 //                System.out.println(rs.getInt("item_id") +  "\t" +
 //                        rs.getString("content") + "\t" +

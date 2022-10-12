@@ -9,12 +9,12 @@ public class TerminalScanner {
 
     public static void runToDo() {
         Scanner commandObj = new Scanner(System.in);
-        System.out.println("Welcome to the to-do list command line tool.");
+        System.out.println("Welcome to the to-do list command line tool. " +
+                "Type \"help\" to see a list of available commands.");
         Database testDatabase = new Database();
         Connection conn = testDatabase.connect();
-//      String formatter for left-justified text in terminal
+        // String formatter for left-justified text in terminal
         String formatHelpString = "%-20s%s%n";
-//        String format2 = "%-20s%s%20s%n";
         Boolean run = true;
         String[] commandArgs = null;
         while(run) {
@@ -64,7 +64,7 @@ public class TerminalScanner {
                     }
                     break;
                 case "help":
-//                    String formatHelpString = formatStringGenerator(2);
+                    // Help Text
                     System.out.println("Commands available:");
                     System.out.println();
                     System.out.printf(formatHelpString, "ls:", "Display full to-do list.");
@@ -132,4 +132,3 @@ public class TerminalScanner {
 
 // TODO: filter with streams :))))))))))
 // TODO: shift things up
-// TODO: associate ids, database is its own class, entry is its own class which is created
