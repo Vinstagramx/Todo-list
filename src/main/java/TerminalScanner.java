@@ -2,8 +2,11 @@ import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TerminalScanner {
 
@@ -33,7 +36,15 @@ public class TerminalScanner {
                             Integer itemID = testDatabase.findMaxIndex() + 1;
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-                            List<String> subArray = Arrays.asList(commandArgs).subList(2, commandArgs.length);
+                            int[] optionalArgumentIndices = checkForOptionalArguments(commandArgs);
+                            int endOfTodoText = Arrays.stream(optionalArgumentIndices).filter(i -> i >= 0).min().orElse(0);
+
+                            List<String> subArray = null;
+                            if(endOfTodoText > 0){
+                                subArray = Arrays.asList(commandArgs).subList(2, endOfTodoText);
+                            } else {
+                                subArray = Arrays.asList(commandArgs).subList(2, commandArgs.length);
+                            }
                             String todoMessage = String.join(" ", subArray);
 
                             Entry testEntry = new Entry(itemID, todoMessage, testDate.format(formatter));
@@ -127,6 +138,16 @@ public class TerminalScanner {
         }
         lJust = lJust.concat("%n");
         return lJust;
+    }
+
+    private static int[] checkForOptionalArguments(String[] commandArgs){
+        List<String> commandsListCopy = Arrays.asList(commandArgs).stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+        int priorityIndex = commandsListCopy.indexOf("priority");
+        int categoryIndex = commandsListCopy.indexOf("category");
+//        System.out.println("p " + priorityIndex + "c " + categoryIndex);
+        return new int[]{priorityIndex, categoryIndex};
     }
 }
 

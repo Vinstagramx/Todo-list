@@ -1,7 +1,6 @@
 import java.sql.*;
 
 public class Database {
-
     /**
      * Connects to the todo_list.db SQLite database
      *
