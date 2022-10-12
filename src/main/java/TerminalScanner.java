@@ -17,7 +17,7 @@ public class TerminalScanner {
         Database testDatabase = new Database();
         Connection conn = testDatabase.connect();
         // String formatter for left-justified text in terminal
-        String formatHelpString = "%-20s%s%n";
+        String formatHelpString = "%-30s%s%n";
         Boolean run = true;
         String[] commandArgs = null;
         while(run) {
@@ -118,6 +118,9 @@ public class TerminalScanner {
                     System.out.println("Commands available:");
                     System.out.println();
                     System.out.printf(formatHelpString, "ls:", "Display full to-do list.");
+                    System.out.println("^--- sub-commands ---^");
+                    System.out.printf(formatHelpString, "ls filter (category/priority):", "List and filter by category or priority.");
+                    System.out.printf(formatHelpString, "ls sort (none/category/priority):", "List and sort by alphabetical order (no input) category or priority");
                     System.out.println();
                     System.out.printf(formatHelpString, "done + number:", "Mark to-do item (number) as done.");
                     System.out.println();
@@ -129,6 +132,9 @@ public class TerminalScanner {
                     System.out.println("^--- sub-commands ---^");
                     System.out.printf(formatHelpString, "todo new:", "Create new to-do list item.");
                     System.out.printf(formatHelpString, "todo delete:", "Delete specified to-do list item.");
+                    System.out.println("^--- optional commands ---^");
+                    System.out.printf(formatHelpString, "todo new priority x:", "Create new to-do list item of priority x (\"High\", \"Normal\" or \"Low\").");
+                    System.out.printf(formatHelpString, "todo new category x:", "Create new to-do list item of category x.");
                     break;
                 case "":
                     System.out.println("Please enter a to-do item!");
@@ -155,7 +161,26 @@ public class TerminalScanner {
                     System.out.println("Table Cleared.");
                     break;
                 case "ls":
-                    testDatabase.selectAll();
+                    if (commandArgs.length == 1) {
+                        testDatabase.selectAll();
+                    }
+                    else {
+                        commandArgs[1] = commandArgs[1].toLowerCase();
+                        switch (commandArgs[1]) {
+                            case "filter":
+                                if (commandArgs[2].toLowerCase().equals("priority")){
+                                    System.out.println("test2");
+                                    testDatabase.filterPriority(commandArgs[3]);
+                                }
+                                else if (commandArgs[2].toLowerCase().equals("category")){
+                                    testDatabase.filterCategory(commandArgs[3]);
+                                }
+                            case "sort":
+                                break;
+                            default:
+
+                        }
+                    }
                     break;
                 default:
                     System.out.printf("Command \"%s\" invalid. Please enter a different command!%n", commandArgs[0]);

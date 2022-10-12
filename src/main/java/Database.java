@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class Database {
     /**
@@ -112,4 +114,69 @@ public class Database {
             }
         }
 
+    public void filterPriority(String keyword){
+        List<String> permittedPriorities = Arrays.asList("High", "Normal", "Low");
+        keyword = keyword.toLowerCase();
+        keyword = keyword.substring(0, 1).toUpperCase() + keyword.substring(1);
+
+        if (permittedPriorities.contains(keyword)){
+            String sql = "SELECT item_id, content, priority, category, created_date FROM todo_list WHERE priority = ?";
+            String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
+
+            try (Connection conn = this.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                // set the corresponding param
+                pstmt.setString(1, keyword);
+                ResultSet rs = pstmt.executeQuery();
+                System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Priority",
+                        "Category", "Date Created");
+                // loop through the result set
+                while (rs.next()) {
+                    System.out.printf(columnPrintFormat, rs.getInt("item_id"),
+                            rs.getString("content"),
+                            rs.getString("priority"),
+                            rs.getString("category"),
+                            rs.getString("created_date"));
+//                System.out.println(rs.getInt("item_id") +  "\t" +
+//                        rs.getString("content") + "\t" +
+//                        rs.getString("created_date"));
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else {
+            System.out.printf("Cannot filter by priority \"%s\". Please enter a valid priority keyword!%n", keyword);
+        }
+    }
+
+    public void filterCategory(String keyword){
+
+        String sql = "SELECT item_id, content, priority, category, created_date FROM todo_list WHERE category = ?";
+        String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, keyword);
+            ResultSet rs = pstmt.executeQuery();
+            System.out.printf(columnPrintFormat, "Item ID", "To-Do Content", "Priority",
+                    "Category", "Date Created");
+            // loop through the result set
+            while (rs.next()) {
+                System.out.printf(columnPrintFormat, rs.getInt("item_id"),
+                        rs.getString("content"),
+                        rs.getString("priority"),
+                        rs.getString("category"),
+                        rs.getString("created_date"));
+//                System.out.println(rs.getInt("item_id") +  "\t" +
+//                        rs.getString("content") + "\t" +
+//                        rs.getString("created_date"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
