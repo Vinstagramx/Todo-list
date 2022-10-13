@@ -342,25 +342,41 @@ public class TerminalScanner {
      * @return int[]{2}: integer array containing the priority and category keyword indexes
      */
     private static int[] checkForOptionalArguments(String[] commandArgs){
+        // Creates a copy of the command arguments, converts all elements to lowercase via a stream.
         List<String> commandsListCopy = Arrays.asList(commandArgs).stream()
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
+        // Finds the indexes where the elements match 'priority' or 'category'
+        // If a match is not found, returns -1 for that particular index.
         int priorityIndex = commandsListCopy.indexOf("priority");
         int categoryIndex = commandsListCopy.indexOf("category");
-//        System.out.println("p " + priorityIndex + "c " + categoryIndex);
         return new int[]{priorityIndex, categoryIndex};
     }
 
+    /**
+     * Formats the priority setting to have a capitalised first letter, and lowercase otherwise.
+     * - e.g. HIGH --> High, loW --> Low
+     * @param priority: Priority setting keyword provided by user input.
+     * @return formatted: Formatted string containing the priority setting.
+     */
     private static String formatPriority(String priority){
         priority = priority.toLowerCase();
+        // Splits original string into two substrings, capitalising the first letter,
+        // and concatenating with the rest of the original string.
         String formatted = priority.substring(0, 1).toUpperCase() + priority.substring(1);
         return formatted;
     }
+
+    /**
+     * Checks if the priority setting keyword contains one of the allowed options
+     * - i.e. 'High', 'Normal' or 'Low'.
+     * @param priority: Priority setting keyword provided by user input.
+     * @return boolean: true if priority setting matches one of the permitted options, false otherwise.
+     */
     private static boolean checkPriority(String priority){
         List<String> commandsListCopy = Arrays.asList("High", "Normal", "Low");
         return commandsListCopy.contains(priority);
     }
 }
 
-// TODO: filter with streams :))))))))))
 // TODO: shift things up
