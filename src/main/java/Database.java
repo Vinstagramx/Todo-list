@@ -181,7 +181,7 @@ public class Database {
     }
 
     public void sort(){
-        String sql = "SELECT * FROM todo_list ORDER BY content";
+        String sql = "SELECT * FROM todo_list ORDER BY LOWER(content)";
         String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
 
         try (Connection conn = this.connect();
@@ -251,7 +251,7 @@ public class Database {
     }
 
     public void sortCategory(){
-        String sql = "SELECT * FROM todo_list ORDER BY category";
+        String sql = "SELECT * FROM todo_list ORDER BY LOWER(category)";
         String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
 
         try (Connection conn = this.connect();

@@ -175,6 +175,9 @@ public class TerminalScanner {
                                 else if (commandArgs[2].toLowerCase().equals("category")){
                                     testDatabase.filterCategory(commandArgs[3]);
                                 }
+                                else{
+                                    System.out.printf("Command \"%s\" invalid. Please enter a different command!%n", commandArgs[2]);
+                                }
                                 break;
                             case "sort":
                                 if (commandArgs.length == 2){
