@@ -226,6 +226,9 @@ public class TerminalScanner {
                 // Same operation as 'todo delete (item)'.
                 // User is able to type 'done (item number)' to remove an item from the todo list.
                 case "done":
+                    if (commandArgs.length == 2){
+                        System.out.println("Please enter the ID of the item to complete!");
+                    }
                     Integer idToDelete = null;
                     try {
                         idToDelete = Integer.parseInt(commandArgs[1]);
