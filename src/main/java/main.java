@@ -2,6 +2,10 @@ import java.sql.Connection;
 
 public class main {
 
+    /**
+     * Main program to run.
+     * @param args: System arguments provided upon initial running of program.
+     */
     public static void main(String[] args) {
         TerminalScanner.runToDo();
     }
