@@ -224,7 +224,8 @@ public class Database {
     }
 
     public void sortCategory(){
-        String sql = "SELECT * FROM todo_list ORDER BY LOWER(category)";
+//        String sql = "SELECT * FROM todo_list ORDER BY LOWER(category)";
+        String sql = "SELECT * FROM todo_list ORDER BY CASE LOWER(category) WHEN '' THEN 2 ELSE 1 END";
         String columnPrintFormat = TerminalScanner.formatStringGenerator(5);
 
         try (Connection conn = this.connect();
