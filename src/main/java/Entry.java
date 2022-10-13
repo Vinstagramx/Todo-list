@@ -8,7 +8,7 @@ import java.sql.SQLException;
  *
  */
 public class Entry {
-// TODO: category and priority
+
     private Integer itemID;
     private String content;
 

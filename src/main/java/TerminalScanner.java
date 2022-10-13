@@ -168,8 +168,10 @@ public class TerminalScanner {
                         commandArgs[1] = commandArgs[1].toLowerCase();
                         switch (commandArgs[1]) {
                             case "filter":
-                                if (commandArgs[2].toLowerCase().equals("priority")){
-//                                    System.out.println("test2");
+                                if (commandArgs.length ==3){
+                                    System.out.println("Please enter a priority or category to filter by. (e.g. ls filter priority high)");
+                                }
+                                else if(commandArgs[2].toLowerCase().equals("priority")){
                                     testDatabase.filterPriority(commandArgs[3]);
                                 }
                                 else if (commandArgs[2].toLowerCase().equals("category")){
